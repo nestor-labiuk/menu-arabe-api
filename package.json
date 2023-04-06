@@ -1,0 +1,20 @@
+{
+  "name": "menu-arabe-api",
+  "version": "1.0.0",
+  "description": "Proyecto final de Rolling Code School",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nestor-labiuk/menu-arabe-api.git"
+  },
+  "keywords": [],
+  "author": "AdriÁn Lezcano, Cristhian Leal, Federico Carrizo, Leandro Herrera, Nétor Labiuk, Nico Córdoba,",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nestor-labiuk/menu-arabe-api/issues"
+  },
+  "homepage": "https://github.com/nestor-labiuk/menu-arabe-api#readme"
+}
