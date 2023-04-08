@@ -1,27 +1,28 @@
-import express  from 'express'
+import express from 'express'
 import { usersRoutes } from './routes/index.js'
-import cors from 'cors' 
-
+import cors from 'cors'
 export class Server {
-
-  constructor() {
+ 
+  constructor () {
     this.app = express()
+    this.middlewares()
     this.routes()
   }
 
-  middleware() {
+ 
+
+  middlewares () {
     this.app.use(express.json())
     this.app.use(cors())
   }
 
-  routes() {
-    this.app.use('api/users', usersRoutes)
-    
+  routes () {
+    this.app.use('/api/users', usersRoutes)
   }
 
-  listen() {
+  listen () {
     this.app.listen(8080, () => {
       console.log('Servidor corriendo en el puerto 8080')
-    }) 
+    })
   }
 }
