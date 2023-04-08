@@ -11,7 +11,7 @@
     "dev": "nodemon app.js"
   },
   "keywords": [],
-  "author": "AdriÁn Lezcano, Cristhian Leal, Federico Carrizo, Leandro Herrera, Nétor Labiuk, Nico Córdoba, Monica Gabriela Gabriela",
+  "author": "AdriÁn Lezcano, Cristhian Leal, Federico Carrizo, Leandro Herrera, Néstor Labiuk, Nico Córdoba, Monica Gabriela Gabriela",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
