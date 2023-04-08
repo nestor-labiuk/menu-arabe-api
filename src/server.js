@@ -1,6 +1,6 @@
 import express  from 'express'
+import { usersRoutes } from './routes/index.js'
 import cors from 'cors' 
-import router from './routes/users.routes.js'
 
 export class Server {
 
@@ -15,7 +15,7 @@ export class Server {
   }
 
   routes() {
-    this.app.use('api/users', router)
+    this.app.use('api/users', usersRoutes)
     
   }
 
