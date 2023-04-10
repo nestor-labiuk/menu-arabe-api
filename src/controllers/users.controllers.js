@@ -7,8 +7,12 @@ export const getUser = (req, res) => {
   res.json('Obtuviste un usuario')
 }
 
-export const createUser = async (req, res) => {
-  res.json('Creaste un usuario')
+export const createUser = (req, res) => {
+  const data = req.body
+  res.json({
+    message: `Usuario ${data.name} creado`,
+    data
+  })
 } 
 
 export const editUser = (req, res) => {
