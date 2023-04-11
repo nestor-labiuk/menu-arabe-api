@@ -6,8 +6,12 @@ const UserSchema = new Schema({
   adress: { type: String, required:[true, 'La dirección es requerida'] },
   phoneNumber: { type: Number, required:[true, 'En número de teléfono es requerido']},
   password: { type: String, required:[true, 'La contraseña es requerida']},
-  isActive: { type: Boolean,},
-  isAdmin: { type: Boolean }
-})
+  isActive: { type: Boolean , default: true },
+  isAdmin: { type: Boolean , default: false }
+},
+{
+  timestamps: true
+}
+)
 
 export default model('User', UserSchema)

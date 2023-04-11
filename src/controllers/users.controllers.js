@@ -10,12 +10,12 @@ export const getUser = (req, res) => {
 }
 
 export const createUser = async (req, res) => {
-  const { name, email, adress, phoneNumber, password } = req.param
-  const user = await User({ name, email, adress, phoneNumber, password })
+  const { name, email, adress, phoneNumber, password, isActive, isAdmin } = req.body
+  const user = await User({ name, email, adress, phoneNumber, password, isActive, isAdmin })
   try {
     user.save()
     res.status(201).json({
-      message: `Usuario ${data.name} creado`
+      message: `Usuario ${name} creado`
     })
   } catch (error) {
     res.status(500).json({
