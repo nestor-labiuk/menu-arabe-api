@@ -4,7 +4,8 @@ export const getUsers = async (req, res) => {
 }
 
 export const getUser = (req, res) => {
-  res.json('Obtuviste un usuario')
+  const { id } = req.params
+  res.json(`Obtuviste un usuario con el id ${id}`)
 }
 
 export const createUser = (req, res) => {
