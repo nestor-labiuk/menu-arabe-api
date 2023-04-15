@@ -12,12 +12,12 @@ export const getMenus = async (req, res) => {
   ])
   if(total===0){
     return res.status(404).json ({
-      message: "No hay usuarios",
+      message: "No hay menús",
     })
   }
   if (menus){
     return res.status(200).json ({
-      message: "Usuarios retornados exitosamente",
+      message: "menús retornados exitosamente",
       total,
       menus
     })
@@ -29,17 +29,17 @@ export const getMenu = async (req, res) => {
   const {id} = req.params
   if(!isValidObjectId(id)){
     return res.status(404).json({
-      message:`Usuario: no es valido`
+      message:`Menú: no es valido`
     })
   }
   const menu = await Menu.findById(id)
   if (! menu){
     return res.status(404).json({
-      message:`Usuario: no existente`
+      message:`Menú: no existente`
     })
   }
   res.json ({
-      message: `Usuario con id ${id},retornado exitosamente`,
+      message: `Menú con id ${id},retornado exitosamente`,
       menu }) 
 
 }
@@ -49,7 +49,7 @@ export const createMenu = async (req, res) => {
   const isExistName = await Menu.findOne({name})
   if (isExistName){
     return res.status(400).json({
-      message:'El nombre ya existe'
+      message:'El nombre del menú ya existe'
     })
   }
   const menu = await Menu({
@@ -82,13 +82,13 @@ export const deleteMenu = async (req, res) => {
   const {id} = req.params
   if(!isValidObjectId(id)){
     return res.status(404).json({
-      message:`Usuario: no es valido`
+      message:`Menú: no es valido`
     })
   }
   const menu = await Menu.findByIdAndDelete(id)
   if (! menu){
     return res.status(404).json({
-      message:`Usuario: no existente`
+      message:`Menú: no existente`
     })
   }
   res.json ({
