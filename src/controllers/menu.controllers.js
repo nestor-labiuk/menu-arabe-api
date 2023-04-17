@@ -45,7 +45,7 @@ export const getMenu = async (req, res) => {
 }
 
 export const createMenu = async (req, res) => {
-  const {name,state,price,detail,category} = req.body
+  const {name,state,price,detail,category,image} = req.body
   const isExistName = await Menu.findOne({name})
   if (isExistName){
     return res.status(400).json({
@@ -53,7 +53,7 @@ export const createMenu = async (req, res) => {
     })
   }
   const menu = await Menu({
-    name,state,price,detail,category
+    name,state,price,detail,category,image
   })
   try {
     await menu.save()
@@ -69,6 +69,7 @@ export const createMenu = async (req, res) => {
         price:error.errors?.price?.message,
         detail:error.errors?.detail?.message,
         category:error.errors?.category?.message,
+        image:error.errors?.image?.message,
       },
     })
   }
