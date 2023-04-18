@@ -26,6 +26,11 @@ const MenuSchema = new Schema(
       type: String,
       required: [true, 'La categoría es requerida']
     },
+    image:
+    {
+      type: String,
+      required: [true, 'La imagen es requerida']
+    },
 
   },
   {
