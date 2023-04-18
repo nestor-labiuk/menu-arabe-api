@@ -17,8 +17,8 @@ export const getMenus = async (req, res) => {
   }
   if (menus){
     return res.status(200).json ({
-      message: "menús retornados exitosamente",
-      total,
+      // message: "menús retornados exitosamente",
+      // total,
       menus
     })
   }
