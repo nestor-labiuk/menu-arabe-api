@@ -51,13 +51,20 @@ export const createUser = async (req, res) => {
   const user = await User({ name, email, adress, phoneNumber, password, isActive, isAdmin })
 
   try {
-    user.save()
+    await user.save()
     res.status(201).json({
       message: `Usuario ${name} creado`
     })
   } catch (error) {
     res.status(500).json({
-      message: 'No se pudo crear el usuario'
+      message: 'No se pudo crear el usuario',
+      fields: {
+        name: error.errors?.name?.message,
+        email: error.errors?.email?.message,
+        adress: error.errors?.adress?.message,
+        phoneNumber: error.errors?.phoneNumber?.message,
+        password: error.errors?.password?.message
+      }
     })
     console.log(error)
   }
