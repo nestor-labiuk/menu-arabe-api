@@ -14,7 +14,7 @@ router.post('/',
   body('email', 'El email debe tener formato de mail y un maximo de 40 caracteres').isEmail().isLength({max: 40}),
   check('email').custom(existEmail),
   body('adress','La dirección debe tener entre 5 y 30 caracteres').isLength({min: 5, max: 30}),
-  body('phoneNumber', 'El número de telefono debe tener 7 y 18 caracteres').isLength({min: 7, max: 18}),
+  body('phoneNumber', 'El telefono deben ser números y tener entre 7 y 18 caracteres').isLength({min: 7, max: 18}).isNumeric(),
   body('password', 'La contraseña debe tener entre 8 y 12 caracteres').isLength({min: 8, max: 12} ),
   validateField
  ],

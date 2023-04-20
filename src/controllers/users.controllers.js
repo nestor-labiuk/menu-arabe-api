@@ -49,8 +49,6 @@ export const getUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { name, email, adress, phoneNumber, password, isActive, isAdmin } = req.body
-  // verificar que los datos ingresados sean válidos
-  
   
   const user = await User({ name, email, adress, phoneNumber, password, isActive, isAdmin })
   user.password = encryptPassword(password)
