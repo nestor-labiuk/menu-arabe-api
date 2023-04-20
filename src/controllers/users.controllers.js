@@ -1,5 +1,6 @@
-import { isValidObjectId } from "mongoose"
-import User from "../model/User.js"
+import { isValidObjectId } from 'mongoose'
+import User from '../model/User.js'
+import encryptPassword from '../helpers/encryptPassword.js'
 
 export const getUsers = async (req, res) => {
   const { limit = 10, from = 0 } = req.query
@@ -9,7 +10,7 @@ export const getUsers = async (req, res) => {
       .skip(Number(from))
       .limit(Number(limit)),
     User.count()
-    ])
+  ])
 
   if (users) {
     return res.status(200).json({
@@ -48,7 +49,16 @@ export const getUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { name, email, adress, phoneNumber, password, isActive, isAdmin } = req.body
+  // verificar que los datos ingresados sean válidos
+  const isEmail = await User.findOne({ email })
+  if (isEmail) {
+    return res.status(400).json({
+      message: 'El correo ya existe'
+    })
+  }
+  
   const user = await User({ name, email, adress, phoneNumber, password, isActive, isAdmin })
+  user.password = encryptPassword(password)
 
   try {
     await user.save()
