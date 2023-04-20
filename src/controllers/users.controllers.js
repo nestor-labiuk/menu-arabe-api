@@ -50,12 +50,7 @@ export const getUser = async (req, res) => {
 export const createUser = async (req, res) => {
   const { name, email, adress, phoneNumber, password, isActive, isAdmin } = req.body
   // verificar que los datos ingresados sean válidos
-  const isEmail = await User.findOne({ email })
-  if (isEmail) {
-    return res.status(400).json({
-      message: 'El correo ya existe'
-    })
-  }
+  
   
   const user = await User({ name, email, adress, phoneNumber, password, isActive, isAdmin })
   user.password = encryptPassword(password)
