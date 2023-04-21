@@ -19,7 +19,7 @@ const UserSchema = new Schema(
     },
     phoneNumber:
     {
-      type: Number,
+      type: String,
       required: [true, 'En número de teléfono es requerido']
     },
     password:
