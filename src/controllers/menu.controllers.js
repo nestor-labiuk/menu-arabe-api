@@ -2,7 +2,7 @@ import { isValidObjectId } from "mongoose";
 import Menu from "../model/Menu.js";
 
 export const getMenus = async (req, res) => {
-  const {limit=10,from=0} = req.query
+  const {limit=100,from=0} = req.query
   const [menus,total] = await Promise.all([
 
     Menu.find({})
