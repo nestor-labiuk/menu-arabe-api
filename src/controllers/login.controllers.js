@@ -1,7 +1,8 @@
 import { compareSync } from 'bcrypt'
 import User from '../model/User.js'
 import jwt from 'jsonwebtoken'
-export const authUser = async (req, res) => {
+
+export const loginUser = async (req, res) => {
   const SIGNATURE = process.env.SIGNATURE
   const { email, password } = req.body
   const user = await User.findOne({ email })

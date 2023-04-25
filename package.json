@@ -24,5 +24,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nestor-labiuk/menu-arabe-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nestor-labiuk/menu-arabe-api/issues"
+  },
+  "homepage": "https://github.com/nestor-labiuk/menu-arabe-api#readme"
 }
