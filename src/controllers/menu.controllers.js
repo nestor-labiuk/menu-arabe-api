@@ -2,7 +2,7 @@ import { isValidObjectId } from "mongoose";
 import Menu from "../model/Menu.js";
 
 export const getMenus = async (req, res) => {
-  const {limit=10,from=0} = req.query
+  const {limit=100,from=0} = req.query
   const [menus,total] = await Promise.all([
 
     Menu.find({})
@@ -39,7 +39,7 @@ export const getMenu = async (req, res) => {
     })
   }
   res.json ({
-      message: `Menú con id ${id},retornado exitosamente`,
+      // message: `Menú con id ${id},retornado exitosamente`,
       menu }) 
 
 }
@@ -76,7 +76,47 @@ export const createMenu = async (req, res) => {
 }
 
 export const editMenu = async (req, res) => {
-  res.json('editaste un menu')
+  const {id} = req.params
+  const {name,state,price,detail,category,image} = req.body
+  if(!isValidObjectId(id)){
+    return res.status(404).json({
+      message:`Menú: no es valido para edición`
+    })
+  }
+  const menuById = await Menu.findById(id)
+  if (! menuById){
+    return res.status(404).json({
+      message:`Menú: no existente para edición`
+    })
+  }
+
+  const menuByName = await Menu.findOne({name})
+  if (menuByName && menuById.name !== name){
+    return res.status(400).json({
+      message:'El nombre del menú ya existe'
+    })
+  }
+
+
+  try {
+    await Menu.findByIdAndUpdate({_id:id},{name,state,price,detail,category,image} )
+    res.status(201).json ({
+      message: `Menu ${name} editado`,
+    })
+  } catch (error) {
+    res.status(400).json({
+      message:'Ha ocurrido un error',
+      fields:{
+        name:error.errors?.name?.message,
+        state:error.errors?.state?.message,
+        price:error.errors?.price?.message,
+        detail:error.errors?.detail?.message,
+        category:error.errors?.category?.message,
+        image:error.errors?.image?.message,
+      },
+    })
+  }
+
 }
 
 export const deleteMenu = async (req, res) => {
