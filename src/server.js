@@ -24,6 +24,7 @@ export class Server {
     this.app.use('/api/users', usersRoutes)
     this.app.use('/api/menu', menuRoutes)
     this.app.use('/api/orders', ordersRoutes)
+    this.app.use('/api/login', loginRoutes)
   }
 
   listen() {
