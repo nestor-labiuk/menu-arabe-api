@@ -76,21 +76,22 @@ export const createMenu = async (req, res) => {
 }
 
 export const editMenu = async (req, res) => {
-  const {idn,namen,staten,pricen,detailn,categoryn,imagen} = req.body
-  if(!isValidObjectId(idn)){
+  const {id} = req.params
+  const {name,state,price,detail,category,image} = req.body
+  if(!isValidObjectId(id)){
     return res.status(404).json({
       message:`Menú: no es valido para edición`
     })
   }
-  const menu = await Menu.findById(idn)
-  if (! menu){
+  const menuById = await Menu.findById(id)
+  if (! menuById){
     return res.status(404).json({
       message:`Menú: no existente para edición`
     })
   }
-  var name = namen
-  const isExistName = await Menu.findOne({name})
-  if (isExistName){
+
+  const menuByName = await Menu.findOne({name})
+  if (menuByName && menuById.name !== name){
     return res.status(400).json({
       message:'El nombre del menú ya existe'
     })
@@ -98,9 +99,9 @@ export const editMenu = async (req, res) => {
 
 
   try {
-    await Menu.findByIdAndUpdate({_id:idn},{name:namen,state:staten,price:pricen,detail:detailn,category:categoryn,image:imagen} )
+    await Menu.findByIdAndUpdate({_id:id},{name,state,price,detail,category,image} )
     res.status(201).json ({
-      message: `Menu ${namen} editado`,
+      message: `Menu ${name} editado`,
     })
   } catch (error) {
     res.status(400).json({
