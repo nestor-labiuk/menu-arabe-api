@@ -39,7 +39,7 @@ export const getMenu = async (req, res) => {
     })
   }
   res.json ({
-      message: `Menú con id ${id},retornado exitosamente`,
+      // message: `Menú con id ${id},retornado exitosamente`,
       menu }) 
 
 }
@@ -76,7 +76,46 @@ export const createMenu = async (req, res) => {
 }
 
 export const editMenu = async (req, res) => {
-  res.json('editaste un menu')
+  const {idn,namen,staten,pricen,detailn,categoryn,imagen} = req.body
+  if(!isValidObjectId(idn)){
+    return res.status(404).json({
+      message:`Menú: no es valido para edición`
+    })
+  }
+  const menu = await Menu.findById(idn)
+  if (! menu){
+    return res.status(404).json({
+      message:`Menú: no existente para edición`
+    })
+  }
+  var name = namen
+  const isExistName = await Menu.findOne({name})
+  if (isExistName){
+    return res.status(400).json({
+      message:'El nombre del menú ya existe'
+    })
+  }
+
+
+  try {
+    await Menu.findByIdAndUpdate({_id:idn},{name:namen,state:staten,price:pricen,detail:detailn,category:categoryn,image:imagen} )
+    res.status(201).json ({
+      message: `Menu ${namen} editado`,
+    })
+  } catch (error) {
+    res.status(400).json({
+      message:'Ha ocurrido un error',
+      fields:{
+        name:error.errors?.name?.message,
+        state:error.errors?.state?.message,
+        price:error.errors?.price?.message,
+        detail:error.errors?.detail?.message,
+        category:error.errors?.category?.message,
+        image:error.errors?.image?.message,
+      },
+    })
+  }
+
 }
 
 export const deleteMenu = async (req, res) => {
