@@ -1,5 +1,5 @@
 import express from 'express'
-import { usersRoutes, menuRoutes, ordersRoutes } from './routes/index.js'
+import { usersRoutes, menuRoutes, ordersRoutes, loginRoutes } from './routes/index.js'
 import cors from 'cors'
 import { dbConnection } from './db/config.js'
 export class Server {
