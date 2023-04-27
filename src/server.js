@@ -1,5 +1,5 @@
 import express from 'express'
-import { usersRoutes,menuRoutes } from './routes/index.js'
+import { usersRoutes, menuRoutes, ordersRoutes, loginRoutes } from './routes/index.js'
 import cors from 'cors'
 import { dbConnection } from './db/config.js'
 export class Server {
@@ -23,6 +23,8 @@ export class Server {
   routes() {
     this.app.use('/api/users', usersRoutes)
     this.app.use('/api/menu', menuRoutes)
+    this.app.use('/api/orders', ordersRoutes)
+    this.app.use('/api/login', loginRoutes)
   }
 
   listen() {
