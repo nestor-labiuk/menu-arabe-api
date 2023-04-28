@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-export const validateToken = (req, res) => {
+export const validateToken = (req, res, next) => {
   const token = req.headers['accesstoken']
 
   if (!token) {

@@ -8,13 +8,13 @@ export const loginUser = async (req, res) => {
   const user = await User.findOne({ email })
   if (!user) {
     return res.status(400).json({
-      message: 'La información ingresada no es correcta'
+      messageError: 'La información ingresada no es correcta'
     })
   }
   const isPasswordsValid = compareSync(password, user.password)
   if (!isPasswordsValid) {
     return res.status(400).json({
-      message: 'La información ingresada no es correcta'
+      messageError: 'La información ingresada no es correcta'
     })
   }
   const payload = {
@@ -22,7 +22,8 @@ export const loginUser = async (req, res) => {
   }
   const accesstoken = jwt.sign(payload, SIGNATURE, {expiresIn: "1h"})
   res.json({
-    message: `Bienvenido ${user.name}`,
+    messageAccess: `Bienvenido ${user.name}`,
     accesstoken,
+    user
   })
 }
