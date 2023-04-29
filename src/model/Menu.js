@@ -9,7 +9,7 @@ const MenuSchema = new Schema(
     },
     state:
     {
-      type: String,
+      type: Boolean,
       required: [true, 'El estado es requerido']
     },
     price:
