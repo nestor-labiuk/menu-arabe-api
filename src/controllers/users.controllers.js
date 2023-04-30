@@ -74,8 +74,49 @@ export const createUser = async (req, res) => {
   }
 }
 
-export const editUser = (req, res) => {
-  res.status(201).json('Editaste un usuario')
+export const editUser = async (req, res) => {
+  const {id} = req.params
+  const {name, email, adress,phoneNumber,password,isActive,isAdmin} = req.body
+  if(!isValidObjectId(id)){
+    return res.status(404).json({
+      message:`Usuario: no es valido para edición`
+    })
+  }
+  const userById = await User.findById(id)
+  if (! userById){
+    return res.status(404).json({
+      message:`Usuario: no existente para edición`
+    })
+  }
+
+  const userByEmail = await User.findOne({email})
+  if (userByEmail && userById.email !== email){
+    return res.status(400).json({
+      message:'Ya existe un usuario con este email'
+    })
+  }
+
+
+  try {
+    await User.findByIdAndUpdate({_id:id},{name, email, adress,phoneNumber,password,isActive,isAdmin} )
+    res.status(201).json ({
+      message: `Usuario ${name} editado`,
+    })
+  } catch (error) {
+    res.status(400).json({
+      message:'Ha ocurrido un error',
+      fields:{
+        name:error.errors?.name?.message,
+        email:error.errors?.email?.message,
+        address:error.errors?.address?.message,
+        phoneNumber:error.errors?.phoneNumber?.message,
+        password:error.errors?.password?.message,
+        isActive:error.errors?.isActive?.message,
+        isAdmin:error.errors?.isAdmin?.message,
+      },
+    })
+  }
+
 }
 
 export const deleteUser = async (req, res) => {
