@@ -24,14 +24,14 @@ export const getOrders = async (req, res) => {
 
 export const getOrder = async (req, res) => {
   const { id } = req.params
-  if(!Order){
+  if(!order){
     return res.status(500).json({
       message: 'No se pudo obtener el Pedido'
     })
   }
   req.json(`Obtuviste el Pedido con id ${id}`)
 
-  const order = await Orders.findById(id)
+  const order = await order.findById(id)
     if(!order){
       return res.status(404).json({
         message: 'No se encontro el Pedido'
@@ -43,8 +43,8 @@ export const getOrder = async (req, res) => {
 }
 
 export const createOrder = async (req, res) => {
-  const { name, state, menu, price, adress } = req.body
-    const order = await Order({ name, state, menu, price, adress })
+  const { name, address, menu, price, createdAt  } = req.body
+  const order = await Order({ name, address, menu, price, createdAt })
   
   try {
     order.save()
@@ -61,12 +61,12 @@ export const createOrder = async (req, res) => {
 
 export const deleteOrder = async (req, res) => {  
   const { id } = req.params
-  if(!Orders){
+  if(!order){
     return res.status(404).json({
       message: 'No se pudo borrar el Pedido'
     })
   }
-  const order = await Orders.findByIdAndDelete(id)
+  const order = await orders.findByIdAndDelete(id)
   if(! order){
     return res.status(404).json({
       message: 'No hay Pedidos'
