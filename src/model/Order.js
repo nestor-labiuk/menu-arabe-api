@@ -7,6 +7,11 @@ const orderSchema = new Schema(
       type: String,
 
     },
+    adress:
+    {
+      type: String,
+      required: [true, 'La dirección es requerida']
+    },
     date:
     {
       type: Date,
@@ -28,7 +33,8 @@ const orderSchema = new Schema(
     }
   },
   {
-    timestamps: true
+    timestamps: true,
   }
+  
 )
 export default model ('Order', orderSchema) 
