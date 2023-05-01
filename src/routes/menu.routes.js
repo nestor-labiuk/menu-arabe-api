@@ -1,9 +1,10 @@
 import { Router } from 'express'
 import { getMenus,getMenu,createMenu,editMenu,deleteMenu} from '.././controllers/menu.controllers.js'
+import { validateToken } from '../middlewares/validatesToken.js'
 
 const router = Router()
 
-router.get('/', getMenus)
+router.get('/', validateToken, getMenus)
 router.get('/:id', getMenu)
 router.post('/', createMenu)
 router.put('/:id', editMenu)
