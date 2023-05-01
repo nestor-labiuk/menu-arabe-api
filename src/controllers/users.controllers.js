@@ -76,7 +76,10 @@ export const createUser = async (req, res) => {
 
 export const editUser = async (req, res) => {
   const {id} = req.params
-  const {name, email, adress,phoneNumber,password,isActive,isAdmin} = req.body
+  var {name, email, adress,phoneNumber,password,isActive,isAdmin} = req.body
+  console.log(password)
+  password = encryptPassword(password)
+  console.log(password)
   if(!isValidObjectId(id)){
     return res.status(404).json({
       message:`Usuario: no es valido para edición`
