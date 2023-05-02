@@ -2,9 +2,8 @@ import { isValidObjectId } from "mongoose";
 import Menu from "../model/Menu.js";
 
 export const getMenus = async (req, res) => {
-  const {limit=100,from=0} = req.query
+  const {limit=10,from=0} = req.query
   const [menus,total] = await Promise.all([
-
     Menu.find({})
     .skip(Number(from))
     .limit(Number(limit)),
@@ -17,8 +16,8 @@ export const getMenus = async (req, res) => {
   }
   if (menus){
     return res.status(200).json ({
-      // message: "menús retornados exitosamente",
-      // total,
+      message: "menús retornados exitosamente",
+      total,
       menus
     })
   }
@@ -39,7 +38,7 @@ export const getMenu = async (req, res) => {
     })
   }
   res.json ({
-      // message: `Menú con id ${id},retornado exitosamente`,
+      message: `Menú con id ${id},retornado exitosamente`,
       menu }) 
 
 }

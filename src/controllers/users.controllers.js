@@ -4,14 +4,12 @@ import encryptPassword from '../helpers/encryptPassword.js'
 
 export const getUsers = async (req, res) => {
   const { limit = 10, from = 0 } = req.query
-
   const [users, total] = await Promise.all([
     User.find({})
       .skip(Number(from))
       .limit(Number(limit)),
     User.count()
   ])
-
   if (users) {
     return res.status(200).json({
       message: 'Usuarios retornados con éxito',
@@ -76,7 +74,7 @@ export const createUser = async (req, res) => {
 
 export const editUser = async (req, res) => {
   const {id} = req.params
-  var {name, email, adress,phoneNumber,password,isActive,isAdmin} = req.body
+  let {name, email, adress,phoneNumber,password,isActive,isAdmin} = req.body
   console.log(password)
   password = encryptPassword(password)
   console.log(password)
