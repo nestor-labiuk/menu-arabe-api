@@ -3,12 +3,13 @@ import { getUsers, getUser, createUser, editUser, deleteUser } from '.././contro
 import { body, check } from 'express-validator'
 import { validateField } from '../middlewares/validatesFields.js'
 import { existEmail } from '../db/db-validator.js'
+import { validateToken } from '../middlewares/validatesToken.js'
 
 const router = Router()
 
-router.get('/', getUsers)
-router.get('/:id', getUser)
-router.post('/',
+router.get('/', validateToken,  getUsers)
+router.get('/:id', validateToken,  getUser)
+router.post('/' , validateToken,
  [
   body('name', 'El nombre es requerido y debe tener entre 3 y 30 caracteres').isLength({min: 3, max: 30}),
   body('email', 'El email es requerido y debe tener formato de mail y un maximo de 40 caracteres').isEmail().isLength({max: 40}),
@@ -19,7 +20,7 @@ router.post('/',
   validateField
  ],
   createUser)
-router.put('/', editUser)
-router.delete('/:id', deleteUser)
+router.put('/', validateToken, editUser)
+router.delete('/:id', validateToken, deleteUser)
 
 export default router
