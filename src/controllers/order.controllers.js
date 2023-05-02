@@ -21,7 +21,6 @@ export const createOrder = async (req, res) => {
     res.status(500).json({
       message: 'No se pudo hacer el Pedido'
     })
-    console.log(error)
   }
 }
 
