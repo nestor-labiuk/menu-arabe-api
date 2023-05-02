@@ -2,31 +2,26 @@ import { model, Schema } from 'mongoose';
 
 const orderSchema = new Schema(
   {
-    name: {
+    userName: {
       type: String,
       required: [true, 'El nombre del usuario es requerido'],
     },
-    address: {
+    userAddress: {
       type: String,
       required: [true, 'La dirección del usuario es requerida'],
     },
-    menu: {
+    menuName: {
       type: String,
       required: [true, 'El pedido es requerido'],
     },
-    price: {
+    menuPrice:{
       type: Number,
       required: [true, 'El precio del pedido es requerido'],
     },
     status: {
-      type: String,
-      default: 'Pendiente',
-      enum: ['Pendiente', 'Enviado'],
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+      type: Boolean,
+      default: true
+    }
   },
   {
     timestamps: true,
