@@ -53,7 +53,7 @@ export const createOrder = async (req, res) => {
     status
   } = req.body
 
-  console.log(req.body)
+  
   const order = await Order({
     userName,
     userAddress,
@@ -61,7 +61,7 @@ export const createOrder = async (req, res) => {
     menuPrice,
     status
   })
-  console.log(order)
+  
 
   try {
     await order.save()
