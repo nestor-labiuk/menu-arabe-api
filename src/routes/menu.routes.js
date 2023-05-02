@@ -4,10 +4,10 @@ import { validateToken } from '../middlewares/validatesToken.js'
 
 const router = Router()
 
-router.get('/', validateToken, getMenus)
+router.get('/', getMenus)
 router.get('/:id', getMenu)
-router.post('/', createMenu)
-router.put('/:id', editMenu)
-router.delete('/:id', deleteMenu)
+router.post('/', validateToken, createMenu)
+router.put('/:id', validateToken, editMenu)
+router.delete('/:id', validateToken, deleteMenu)
 
 export default router
