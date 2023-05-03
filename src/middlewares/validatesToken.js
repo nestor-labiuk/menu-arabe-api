@@ -14,7 +14,6 @@ export const validateToken = (req, res, next) => {
 
   try {
     const data = jwt.verify(token, signature)
-    console.log(data)
   } catch (error) {
     return res.status(401).json({
       message: 'No tiene acceso a esta página',

@@ -4,14 +4,12 @@ import encryptPassword from '../helpers/encryptPassword.js'
 
 export const getUsers = async (req, res) => {
   const { limit = 10, from = 0 } = req.query
-
   const [users, total] = await Promise.all([
     User.find({})
       .skip(Number(from))
       .limit(Number(limit)),
     User.count()
   ])
-
   if (users) {
     return res.status(200).json({
       message: 'Usuarios retornados con éxito',
@@ -70,13 +68,12 @@ export const createUser = async (req, res) => {
         password: error.errors?.password?.message
       }
     })
-    console.log(error)
   }
 }
 
 export const editUser = async (req, res) => {
   const {id} = req.params
-  const {name, email, adress,phoneNumber,password,isActive,isAdmin} = req.body
+  const {name, email, adress,phoneNumber,isActive,isAdmin} = req.body
   if(!isValidObjectId(id)){
     return res.status(404).json({
       message:`Usuario: no es valido para edición`
@@ -88,17 +85,17 @@ export const editUser = async (req, res) => {
       message:`Usuario: no existente para edición`
     })
   }
-
+  
   const userByEmail = await User.findOne({email})
   if (userByEmail && userById.email !== email){
     return res.status(400).json({
       message:'Ya existe un usuario con este email'
     })
   }
-
+  
 
   try {
-    await User.findByIdAndUpdate({_id:id},{name, email, adress,phoneNumber,password,isActive,isAdmin} )
+    await User.findByIdAndUpdate({_id:id},{name, email, adress,phoneNumber,isActive,isAdmin} )
     res.status(201).json ({
       message: `Usuario ${name} editado`,
     })
@@ -110,7 +107,6 @@ export const editUser = async (req, res) => {
         email:error.errors?.email?.message,
         address:error.errors?.address?.message,
         phoneNumber:error.errors?.phoneNumber?.message,
-        password:error.errors?.password?.message,
         isActive:error.errors?.isActive?.message,
         isAdmin:error.errors?.isAdmin?.message,
       },
