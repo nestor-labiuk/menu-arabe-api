@@ -9,7 +9,7 @@ const router = Router()
 
 router.get('/', validateToken,  getUsers)
 router.get('/:id', validateToken,  getUser)
-router.post('/' , validateToken,
+router.post('/' ,
   [
   body('name', 'El nombre es requerido y debe tener entre 3 y 30 caracteres').isLength({min: 3, max: 30}),
   body('email', 'El email es requerido y debe tener formato de mail y un maximo de 40 caracteres').isEmail().isLength({max: 40}),
@@ -20,7 +20,7 @@ router.post('/' , validateToken,
   validateField
   ],
   createUser)
-router.put('/:id', editUser)
+router.put('/:id',validateToken, editUser)
 router.delete('/:id', validateToken, deleteUser)
 
 export default router
