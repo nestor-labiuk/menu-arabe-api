@@ -3,7 +3,6 @@ import { getMenus,getMenu,createMenu,editMenu,deleteMenu} from '.././controllers
 import { validateToken } from '../middlewares/validatesToken.js'
 
 const router = Router()
-
 router.get('/', getMenus)
 router.get('/:id', getMenu)
 router.post('/', validateToken, createMenu)

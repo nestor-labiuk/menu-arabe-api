@@ -26,13 +26,11 @@ export const getUsers = async (req, res) => {
 
 export const getUser = async (req, res) => {
   const { id } = req.params
-
   if (!isValidObjectId(id)) {
     return res.status(400).json({
       message: 'El id del usuario no es válido'
     })
   }
-
   const user = await User.findById(id)
   if (!user) {
     return res.status(404).json({
@@ -46,11 +44,9 @@ export const getUser = async (req, res) => {
 }
 
 export const createUser = async (req, res) => {
-  const { name, email, adress, phoneNumber, password, isActive, isAdmin } = req.body
-  
+  const { name, email, adress, phoneNumber, password, isActive, isAdmin } = req.body  
   const user = await User({ name, email, adress, phoneNumber, password, isActive, isAdmin })
   user.password = encryptPassword(password)
-
   try {
     await user.save()
     res.status(201).json({
@@ -84,16 +80,13 @@ export const editUser = async (req, res) => {
     return res.status(404).json({
       message:`Usuario: no existente para edición`
     })
-  }
-  
+  }  
   const userByEmail = await User.findOne({email})
   if (userByEmail && userById.email !== email){
     return res.status(400).json({
       message:'Ya existe un usuario con este email'
     })
   }
-  
-
   try {
     await User.findByIdAndUpdate({_id:id},{name, email, adress,phoneNumber,isActive,isAdmin} )
     res.status(201).json ({
@@ -112,18 +105,15 @@ export const editUser = async (req, res) => {
       },
     })
   }
-
 }
 
 export const deleteUser = async (req, res) => {
   const { id } = req.params
-
   if (!isValidObjectId(id)) {
     return res.status(400).json({
       message: 'El id de usuario no es valido'
     })
   }
-
   const user = await User.findByIdAndDelete(id)
   if (!user) {
     return res.status(404).json({

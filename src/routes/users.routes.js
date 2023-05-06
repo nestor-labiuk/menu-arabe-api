@@ -6,7 +6,6 @@ import { existEmail } from '../db/db-validator.js'
 import { validateToken } from '../middlewares/validatesToken.js'
 
 const router = Router()
-
 router.get('/', validateToken,  getUsers)
 router.get('/:id', validateToken,  getUser)
 router.post('/' ,

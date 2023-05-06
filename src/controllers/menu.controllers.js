@@ -20,8 +20,7 @@ export const getMenus = async (req, res) => {
       total,
       menus
     })
-  }
-  
+  }  
 }
 
 export const getMenu = async (req, res) => {
@@ -40,7 +39,6 @@ export const getMenu = async (req, res) => {
   res.json ({
       message: `Menú con id ${id},retornado exitosamente`,
       menu }) 
-
 }
 
 export const createMenu = async (req, res) => {
@@ -88,15 +86,12 @@ export const editMenu = async (req, res) => {
       message:`Menú: no existente para edición`
     })
   }
-
   const menuByName = await Menu.findOne({name})
   if (menuByName && menuById.name !== name){
     return res.status(400).json({
       message:'El nombre del menú ya existe'
     })
   }
-
-
   try {
     await Menu.findByIdAndUpdate({_id:id},{name,state,price,detail,category,image} )
     res.status(201).json ({
@@ -115,7 +110,6 @@ export const editMenu = async (req, res) => {
       },
     })
   }
-
 }
 
 export const deleteMenu = async (req, res) => {
