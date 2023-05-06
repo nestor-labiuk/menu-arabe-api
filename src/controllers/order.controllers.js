@@ -1,12 +1,10 @@
 import Order from '../model/Order.js'
 import { isValidObjectId } from "mongoose";
 
-
 export const getOrders = async (req, res) => {
   const [orders, total] = await Promise.all([
     Order.find({})
   ])
-
   if (total === 0) {
     return res.status(404).json({
       message: "No hay pedidos",
@@ -15,13 +13,10 @@ export const getOrders = async (req, res) => {
   if (orders) {
     return res.status(200).json({
       message: "Pedidos retornados exitosamente",
-      // total,
       orders
     })
   }
-
 }
-
 
 export const getOrder = async (req, res) => {
   const { id } = req.params
@@ -30,8 +25,6 @@ export const getOrder = async (req, res) => {
       message: 'No se pudo obtener el Pedido'
     })
   }
-
-
   const order = await Order.findById(id)
   if (!order) {
     return res.status(404).json({
@@ -51,18 +44,14 @@ export const createOrder = async (req, res) => {
     menuName,
     menuPrice,
     status
-  } = req.body
-
-  
+  } = req.body  
   const order = await Order({
     userName,
     userAddress,
     menuName,
     menuPrice,
     status
-  })
-  
-
+  })  
   try {
     await order.save()
     res.status(201).json({
@@ -98,7 +87,6 @@ export const deleteOrder = async (req, res) => {
   res.json({
     message: `order: ${order?.name} eliminado exitosamente`
   })
-
 }
 
 export const editOrder = async (req, res) => {
@@ -118,10 +106,8 @@ export const editOrder = async (req, res) => {
     res.status(400).json({
       message:'Ha ocurrido un error',
       fields:{
-        status:error.errors?.status?.message,
-               
+        status:error.errors?.status?.message,               
       },
     })
   }
-
 }

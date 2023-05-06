@@ -31,7 +31,6 @@ const MenuSchema = new Schema(
       type: String,
       required: [true, 'La imagen es requerida']
     },
-
   },
   {
     timestamps: true
